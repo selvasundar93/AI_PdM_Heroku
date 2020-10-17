@@ -2,7 +2,6 @@ import pickle
 import numpy as np
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
-import tensorflow as tf 
 import joblib
 
 app = Flask(__name__)
@@ -10,7 +9,6 @@ api = Api(app)
 
 # Load pre-trained Models
 global model_DL
-model_DL = tf.keras.models.load_model('LSTM_Autoencoder.h5')
 model_rms = pickle.load(open('lof_rms_trained_model.pkl', 'rb'))
 model_mean = pickle.load(open('lof_mean_trained_model.pkl', 'rb'))
 model_dt = pickle.load(open('DT_Classifier.pkl', 'rb'))
@@ -43,7 +41,7 @@ def class_rul(x):
 
 @app.route('/')
 def home_endpoint():
-    return 'Anomaly Detection & RUL Estimation'
+    return 'Univaraite Anomaly Detection & RUL Estimation'
 
 # Univariate Anomaly Detection - RMS or Mean
 class MakePrediction(Resource):
@@ -61,30 +59,6 @@ class MakePrediction(Resource):
         Aop = Anomaly_output(op)
         return jsonify({"Output": Aop})
 
-# Multivariate Anomaly Detection - Mean Value
-class MakePrediction1(Resource):
-    def post(self):
-        posted_data1 = request.get_json()
-        b1 = posted_data1["Bearing1"]
-        b2 = posted_data1["Bearing2"]
-        b3 = posted_data1["Bearing3"]
-        b4 = posted_data1["Bearing4"]
-        b_comb = np.array([b1,b2,b3,b4]).reshape(1,4)
-        if ((b1==0.0) & (b2==0.0) & (b3==0.0) & (b4==0.0)):
-            op = 0
-        else:
-            scaler = joblib.load("scaler_file")
-            b_comb = scaler.transform(b_comb)
-            dl_pred = model_DL.predict(b_comb.reshape(b_comb.shape[0], 1, b_comb.shape[1]))
-            dl_pred = dl_pred.reshape(dl_pred.shape[0], dl_pred.shape[2])
-            score = np.mean(np.abs(dl_pred-b_comb), axis = 1)
-            threshold = 0.29
-            if score < threshold:
-                op = 1
-            else:
-                op = -1
-        Aop1 = Anomaly_output(op)
-        return jsonify({"Output": Aop1})
 # RUL Prediction
 class RULPrediction(Resource):
     def post(self):
@@ -106,8 +80,7 @@ class RULPrediction(Resource):
                         "Fraction Failing": ff,
                         "RUL":rul_val})
            
-api.add_resource(MakePrediction, '/Ano_Det_Uni')    
-api.add_resource(MakePrediction1, '/Ano_Det_Multi')  
+api.add_resource(MakePrediction, '/Ano_Det_Uni')     
 api.add_resource(RULPrediction, '/RUL_Predict') 
    
 if __name__ == '__main__':
