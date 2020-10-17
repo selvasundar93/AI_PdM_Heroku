@@ -3,14 +3,14 @@
 * Open the URL "https:/ai-pdm.herokuapp.com/"
 * Use Jupyter Notebook or any Script to send & receive data from this app
 ### Univariate Anomaly Detection
-* URL - Endpoint = "https:/ai-pdm.herokuapp.com/Ano_Det_Uni"
+* URL = "https:/ai-pdm.herokuapp.com/Ano_Det_Uni"
 * Load __"{"rms":value,"mean":value}"__ as JSON data
 	* Ex: *"{"rms": 0.0782, "mean": 0.0619}"*
 * API will respond back with JSON data in the form "{"Output": output_value}"
 	* Ex: *"{"Output": Normal}"*
 
 ### Remaining Useful Life Estimation
-* URL - Endpoint = "https:/ai-pdm.herokuapp.com/RUL_Predict"
+* URL = "https:/ai-pdm.herokuapp.com/RUL_Predict"
 * Load __"{"Bearing1_RMS":value,"Bearing1_Kurt":value,"Bearing1_RMS_Prev":value,"Bearing1_Kurt_Prev":value}"__ as JSON data
 	* Ex: *"{"Bearing1_RMS":0.0790,"Bearing1_Kurt":3.5062,"Bearing1_RMS_Prev":0.0789,"Bearing1_Kurt_Prev":3.5963}"*
 * API will respond back with JSON data in the form "{"RUL_Class":output_value,"Fraction Failing":output_value, "RUL":output_value}"
