@@ -1,11 +1,8 @@
 import pickle
 import numpy as np
 from flask import Flask, jsonify, request
-from flask_restful import Api, Resource
-import joblib
 
 app = Flask(__name__)
-api = Api(app)
 
 # Load pre-trained Models
 model_rms = pickle.load(open('lof_rms_trained_model.pkl', 'rb'))
@@ -42,45 +39,42 @@ def class_rul(x):
 def home_endpoint():
     return 'Univaraite Anomaly Detection & RUL Estimation'
 
-# Univariate Anomaly Detection - RMS or Mean
-class MakePrediction(Resource):
-    def post(self):
-        posted_data = request.get_json()
-        rms = posted_data["rms"]
-        mean = posted_data["mean"]
-        if ((rms==0.0) & (mean==0.0)):
-            op = 0
+@app.route('/Ano_Det_Uni', methods=['POST'])
+def post():
+    posted_data = request.get_json()
+    rms = posted_data["rms"]
+    mean = posted_data["mean"]
+    if ((rms==0.0) & (mean==0.0)):
+        op = 0
+    else:
+        if rms==0.0:
+            op = model_mean.predict(np.array(mean).reshape(-1,1))
         else:
-            if rms==0.0:
-                op = model_mean.predict(np.array(mean).reshape(-1,1))
-            else:
-                op = model_rms.predict(np.array(rms).reshape(-1,1))
-        Aop = Anomaly_output(op)
-        return jsonify({"Output": Aop})
+            op = model_rms.predict(np.array(rms).reshape(-1,1))
+    Aop = Anomaly_output(op)
+    return jsonify({"Output": Aop})
 
 # RUL Prediction
-class RULPrediction(Resource):
-    def post(self):
-        posted_data2 = request.get_json()
-        b_r = posted_data2["Bearing1_RMS"]
-        b_k = posted_data2["Bearing1_Kurt"]
-        b_r_p = posted_data2["Bearing1_RMS_Prev"]
-        b_k_p = posted_data2["Bearing1_Kurt_Prev"]
-        if ((b_r==0.0) & (b_k==0.0) & (b_r_p==0.0) & (b_k_p==0.0)):
-            return jsonify({"RUL_Class": "No Proper Input",
-                        "Fraction Failing": "No Proper Input",
-                        "RUL": "No Proper Input"})
-        else:
-        	b_comb1 = np.array([b_r,b_k,b_r_p,b_k_p]).reshape(1,4)
-        	rul_pred = model_dt.predict(b_comb1)
-        	ff = class_ff(int(rul_pred))
-        	rul_val = class_rul(int(rul_pred))
-        	return jsonify({"RUL_Class": int(rul_pred),
-                        "Fraction Failing": ff,
-                        "RUL":rul_val})
-           
-api.add_resource(MakePrediction, '/Ano_Det_Uni')     
-api.add_resource(RULPrediction, '/RUL_Predict') 
+@app.route('/RUL_Predict', methods=['POST'])
+def post1():
+    posted_data2 = request.get_json()
+    b_r = posted_data2["Bearing1_RMS"]
+    b_k = posted_data2["Bearing1_Kurt"]
+    b_r_p = posted_data2["Bearing1_RMS_Prev"]
+    b_k_p = posted_data2["Bearing1_Kurt_Prev"]
+    if ((b_r==0.0) & (b_k==0.0) & (b_r_p==0.0) & (b_k_p==0.0)):
+        return jsonify({"RUL_Class": "No Proper Input",
+                    "Fraction Failing": "No Proper Input",
+                    "RUL": "No Proper Input"})
+    else:
+    	b_comb1 = np.array([b_r,b_k,b_r_p,b_k_p]).reshape(1,4)
+    	rul_pred = model_dt.predict(b_comb1)
+    	ff = class_ff(int(rul_pred))
+    	rul_val = class_rul(int(rul_pred))
+    	return jsonify({"RUL_Class": int(rul_pred),
+                    "Fraction Failing": ff,
+                    "RUL":rul_val})
+
    
 if __name__ == '__main__':
     app.run(port=5000,debug=True)
