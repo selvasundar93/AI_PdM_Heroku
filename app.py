@@ -41,7 +41,7 @@ def home_endpoint():
 
 @app.route('/Ano_Det_Uni', methods=['POST'])
 def post():
-    posted_data = request.get_json()
+    posted_data = request.get_json(force=True)
     rms = posted_data["rms"]
     mean = posted_data["mean"]
     if ((rms==0.0) & (mean==0.0)):
