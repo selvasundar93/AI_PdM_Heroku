@@ -2,6 +2,4 @@ numpy
 pandas
 scikit-learn
 flask
-flask_restful
-joblib
 pickle-mixin
