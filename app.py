@@ -57,7 +57,7 @@ def post():
 # RUL Prediction
 @app.route('/RUL_Predict', methods=['POST'])
 def post1():
-    posted_data2 = request.get_json()
+    posted_data2 = request.get_json(force=True)
     b_r = posted_data2["Bearing1_RMS"]
     b_k = posted_data2["Bearing1_Kurt"]
     b_r_p = posted_data2["Bearing1_RMS_Prev"]
