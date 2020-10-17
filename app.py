@@ -8,7 +8,6 @@ app = Flask(__name__)
 api = Api(app)
 
 # Load pre-trained Models
-global model_DL
 model_rms = pickle.load(open('lof_rms_trained_model.pkl', 'rb'))
 model_mean = pickle.load(open('lof_mean_trained_model.pkl', 'rb'))
 model_dt = pickle.load(open('DT_Classifier.pkl', 'rb'))
@@ -84,5 +83,5 @@ api.add_resource(MakePrediction, '/Ano_Det_Uni')
 api.add_resource(RULPrediction, '/RUL_Predict') 
    
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000,debug=True)
+    app.run(port=5000,debug=True)
 
