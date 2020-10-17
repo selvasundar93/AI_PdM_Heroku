@@ -19,8 +19,8 @@
 ### Input - Description
 Input|Detail
 -----|------
-rms|__Root Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1
-mean|__Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1
+rms|__Root Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1__
+mean|__Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1__
 Bearing1_RMS|__Root Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1__ at *time t*
 Bearing1_Kurt|__Kurtosis__ Value of 1 sec Vibration Signal of __Bearing 1__ at *time t*
 Bearing1_RMS_Prev|__Root Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1__ at *time t-1*
