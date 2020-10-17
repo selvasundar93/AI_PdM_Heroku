@@ -1,0 +1,8 @@
+numpy
+pandas
+scikit-learn
+flask
+flask_restful
+joblib
+pickle-mixin
+tensorflow==2.1.0
