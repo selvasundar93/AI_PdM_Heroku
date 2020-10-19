@@ -1,5 +1,4 @@
-# AI_PdM_Heroku
-## AI Techniques for Predictive Maintenance
+# AI Techniques for Predictive Maintenance
 ## Anomaly Detection Machine Learning Model deployed using FLASK and HEROKU
 ### Read "Instructions_to_Execute" for operating instructions
 ### Visit the link for Project Description: https://github.com/selvasundar93/AI_PdM
