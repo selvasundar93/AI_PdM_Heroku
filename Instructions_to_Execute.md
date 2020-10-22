@@ -33,4 +33,4 @@ Bearing1_Kurt_Prev|__Kurtosis__ Value of 1 sec Vibration Signal of __Bearing 1__
 	* __No Proper Input__ : If all inputs are "0" - Sensor Fault / Machine is turned off
 * For accurate prediction, input values must be given with atleast four decimal places (Ex: 0.0825)
 * Refer Tests folder for examples
-* Refer Tests/Day_Wise_Data folder for feature engineered dataset 
+* Refer Tests/FE_Data for feature engineered dataset 
