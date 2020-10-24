@@ -10,14 +10,15 @@ Bearing3_Mean|__Mean__ Value of 1 sec Vibration Signal of __Bearing 3__
 Bearing4_Mean|__Mean__ Value of 1 sec Vibration Signal of __Bearing 4__
 Bearing1_RMS|__Root Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1__
 Bearing1_Kurt|__Kurtosis__ Value of 1 sec Vibration Signal of __Bearing 1__
+Target|__Normal__ or __Anomaly__
 
 ### RUL_Dataset
 Input|Detail
 -----|------
-Bearing1_RMS|__Root Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1__ at time *_t_*
-Bearing1_Kurt|__Kurtosis__ Value of 1 sec Vibration Signal of __Bearing 1__ at time *_t_*
-Bearing1_RMS_Prev|__Root Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1__ at time *_t-1_*
-Bearing1_Kurt_Prev|__Kurtosis__ Value of 1 sec Vibration Signal of __Bearing 1__ at time *_t-1_*
+Bearing1_RMS|__Root Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1__ at time __t__
+Bearing1_Kurt|__Kurtosis__ Value of 1 sec Vibration Signal of __Bearing 1__ at time __t__
+Bearing1_RMS_Prev|__Root Mean Square__ Value of 1 sec Vibration Signal of __Bearing 1__ at time __t-1__
+Bearing1_Kurt_Prev|__Kurtosis__ Value of 1 sec Vibration Signal of __Bearing 1__ at time __t-1__
 Class|__Remaining Useful Life__ Class (Target Variable)
 
 #### Target Class Description 
